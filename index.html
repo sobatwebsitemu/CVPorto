@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Profesional | Web Developer</title>
+    <style>
+        /* --- 1. VARIABEL & RESET --- */
+        :root {
+            --bg-color: #0f172a;
+            /* Navy Gelap */
+            --card-bg: #1e293b;
+            /* Navy Lebih Terang */
+            --text-primary: #f1f5f9;
+            /* Putih Tulang */
+            --text-secondary: #94a3b8;
+            /* Abu-abu Kebiruan */
+            --accent-color: #38bdf8;
+            /* Biru Langit Neon */
+            --gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* --- 2. NAVBAR (GLASSMORPHISM) --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            /* Efek kaca buram */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* Teks gradasi */
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .btn-contact {
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--accent-color);
+            border-radius: 50px;
+            color: var(--accent-color) !important;
+            transition: all 0.3s ease;
+        }
+
+        .btn-contact:hover {
+            background: var(--accent-color);
+            color: var(--bg-color) !important;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            /* Efek glow */
+        }
+
+        /* --- 3. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 40%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: var(--gradient);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+        }
+
+        /* --- 4. GENERAL LAYOUT --- */
+        .container {
+            padding: 6rem 8%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-title span {
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        /* --- 5. ABOUT & SKILLS --- */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .tags span {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* --- 6. PORTFOLIO GRID --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .card-image {
+            height: 200px;
+            background: #2d3748;
+            /* Placeholder warna jika gambar loading */
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover .card-image img {
+            transform: scale(1.1);
+            /* Zoom effect saat hover */
+        }
+
+        .card-info {
+            padding: 1.5rem;
+        }
+
+        .card-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .card-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .link-arrow {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* --- 7. FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .split-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Opsi: Bisa tambah hamburger menu nanti */
+            .navbar {
+                padding: 1rem 5%;
+            }
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            /* Membuat lingkaran sempurna */
+            object-fit: cover;
+            /* Memastikan foto tidak gepeng */
+            border: 4px solid var(--accent-color);
+            /* Bingkai warna */
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+            /* Efek bersinar */
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Portofolio.</div>
+        <ul class="nav-links">
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#skills">Keahlian</a></li>
+            <li><a href="#portfolio">Proyek</a></li>
+            <li><a href="https://t.me/mreizitpie" class="btn-contact">Hubungi Saya</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <img src="foto-anda.jpg" alt="Foto Profil" class="profile-pic">
+            <h1>Halo, Saya <span style="color:var(--accent-color)">[Alvin Zulian]</span></h1>
+        </div>
+        <p>Web Developer & AI Enthusiast. Mengubah ide kreatif menjadi solusi digital yang fungsional dan estetis.</p>
+        <a href="#portfolio" class="btn-primary">Lihat Karya Saya</a>
+    </header>
+
+    <section id="about" class="container">
+        <div class="split-layout">
+            <div class="about-text">
+                <h2 class="section-title" style="text-align: left;">Tentang Saya 👤</h2>
+                <p>Saya berdedikasi membangun pengalaman web yang intuitif. Dengan latar belakang di pengembangan
+                    front-end dan ketertarikan mendalam pada teknologi AI, saya selalu mencari cara baru untuk
+                    mengoptimalkan alur kerja digital.</p>
+                <p>Fokus saya saat ini adalah menciptakan antarmuka yang tidak hanya indah dilihat tetapi juga
+                    memecahkan masalah nyata pengguna.</p>
+            </div>
+            <div class="skills-list">
+                <h2 class="section-title" style="text-align: left;">Keahlian 🛠️</h2>
+                <div class="tags">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>HTML & CSS</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    <span>JavaScript (ES6+)</span>
+                    <span>PHP & Laravel</span>
+                    <span>Prompt Engineering</span>
+                    <span>UI/UX Design</span>
+                    <span>Responsive Layout</span>
+                    <span>Git & GitHub</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="container">
+        <h2 class="section-title"><span>Proyek Unggulan</span> 📂</h2>
+        <div class="project-grid">
+
+            <div class="project-card">
+                <div class="card-image">
+                    <img src="porto1.png" alt="Eizitpie Production">
+                </div>
+                <div class="card-info">
+                    <h3>Eizitpie Production</h3>
+                    <p>Platform agensi kreatif yang mengintegrasikan solusi AI untuk klien. Dibangun dengan fokus pada
+                        kecepatan dan estetika modern.</p>
+                    <a href="https://eizitpie15production.github.io/portopoliosaya/" class="link-arrow">Lihat Live Demo
+                        &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-image">
+                    <img src="porto4.png" alt="Infografis">
+                </div>
+                <div class="card-info">
+                    <h3>Infografis Pemrograman</h3>
+                    <p>Modul edukasi interaktif untuk pemula yang ingin belajar dasar-dasar coding dengan visual
+                        menarik.</p>
+                    <a href="https://eizitpie15production.github.io/infografisbapro/" class="link-arrow">Lihat Live Demo
+                        &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-image">
+                    <img src="porto3.png" alt="Infografis">
+                </div>
+                <div class="card-info">
+                    <h3>CV Azizah Mandiri</h3>
+                    <p>Toko Penyedia Paving Block(Biasa/K-200), Batako (Lubang/Solid), Kastin(Biasa/Tanjak), Pagar Panel
+                        Beton.</p>
+                    <a href="https://eizitpie15production.github.io/CVAzizahMandiri/" class="link-arrow">Lihat Live Demo
+                        &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-image">
+                    <img src="porto2.png" alt="Soree Coffe">
+                </div>
+                <div class="card-info">
+                    <h3>Soree Coffe</h3>
+                    <p>Landing page responsif untuk bisnis F&B. Menampilkan menu interaktif dan integrasi lokasi.</p>
+                    <a href="https://eizitpie15production.github.io/soree/" class="link-arrow">Lihat Live Demo
+                        &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-image">
+                    <img src="porto5.png" alt="Soree Coffe">
+                </div>
+                <div class="card-info">
+                    <h3>X Space Cafe</h3>
+                    <p>Landing page responsif untuk bisnis F&B. Menampilkan menu interaktif dan integrasi lokasi.</p>
+                    <a href="https://sobatwebsitemu.github.io/xspacecafe/" class="link-arrow">Lihat Live Demo
+                        &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-image">
+                    <img src="porto6.png" alt="Soree Coffe">
+                </div>
+                <div class="card-info">
+                    <h3>Mama Iceland</h3>
+                    <p>Landing page responsif untuk bisnis F&B Ice Cream. Menampilkan menu interaktif dan integrasi
+                        lokasi.</p>
+                    <a href="https://sobatwebsitemu.github.io/mamaiceland/" class="link-arrow">Lihat Live Demo
+                        &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-image">
+                    <img src="porto7.png" alt="Soree Coffe">
+                </div>
+                <div class="card-info">
+                    <h3>Maldif Home</h3>
+                    <p>Landing page responsif Untuk Bisnis Penginapan Kos yang Menampilkan menu harga interaktif dan integrasi
+                        lokasi.</p>
+                    <a href="https://alvinzulian.github.io/maldifhome/" class="link-arrow">Lihat Live Demo
+                        &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-image">
+                    <img src="porto8.png" alt="Soree Coffe">
+                </div>
+                <div class="card-info">
+                    <h3>Galaksi Kos</h3>
+                    <p>Landing page responsif Untuk Bisnis Penginapan Kos yang Menampilkan menu harga interaktif dan integrasi
+                        lokasi.</p>
+                    <a href="https://sobatwebsitemu.github.io/GalaksiKos/" class="link-arrow">Lihat Live Demo
+                        &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2 style="margin-bottom: 1rem; color: #fff;">Siap Memulai Proyek?</h2>
+        <p style="margin-bottom: 2rem;">Mari diskusikan bagaimana saya bisa membantu bisnis Anda berkembang.</p>
+        <a href="mailto:email@anda.com" class="btn-contact">Kirim Email</a>
+        <br><br><br>
+        <p style="font-size: 0.8rem;">&copy; 2025 [CV Portopolio]. Dibuat Oleh Eizitpie Production</p>
+    </footer>
+
+</body>
+
+</html>
