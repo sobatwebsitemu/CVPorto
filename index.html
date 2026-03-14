@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="foto-anda.jpg">
     <title>Portofolio Profesional | Web Developer</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* --- 1. VARIABEL & RESET --- */
         :root {
             --bg-color: #0f172a;
+            --alt-bg: rgba(255, 255, 255, 0.02);
             --card-bg: #1e293b;
             --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
@@ -23,6 +29,7 @@
 
         body.light-mode {
             --bg-color: #f8fafc;
+            --alt-bg: #f1f5f9;
             --card-bg: #ffffff;
             --text-primary: #1e293b;
             --text-secondary: #475569;
@@ -43,7 +50,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             scroll-behavior: smooth;
         }
 
@@ -73,9 +80,28 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 800;
-            background: var(--gradient);
+            background: linear-gradient(
+                120deg,
+                var(--accent-color) 30%,
+                #ffffff 50%,
+                var(--accent-color) 70%
+            );
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: textShine 3s linear infinite;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         .nav-links {
@@ -83,12 +109,21 @@
             display: flex;
             gap: 2.5rem;
             align-items: center;
+            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+        }
+
+        .nav-links.hide-nav {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(20px);
+            pointer-events: none;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--text-primary);
             font-size: 0.95rem;
+            font-weight: 500;
             transition: color 0.3s;
         }
 
@@ -103,6 +138,7 @@
             color: var(--accent-color) !important;
             transition: all 0.3s ease;
             text-decoration: none;
+            font-weight: 600;
         }
 
         .btn-contact-nav:hover {
@@ -133,7 +169,6 @@
             transform: rotate(20deg);
         }
 
-        /* Ikon Hamburger */
         .hamburger {
             display: none;
             font-size: 1.8rem;
@@ -143,6 +178,7 @@
 
         /* --- 3. HERO SECTION --- */
         .hero {
+            position: relative;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -150,13 +186,66 @@
             align-items: center;
             text-align: center;
             padding: 0 5%;
-            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 40%);
+            overflow: hidden;
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0 !important;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.3), transparent 60%),
+                        rgba(15, 23, 42, 0.85); 
+            z-index: 1 !important;
+            transition: background 0.3s ease;
+        }
+
+        body.light-mode .hero-overlay {
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.4), transparent 60%),
+                        rgba(248, 250, 252, 0.85); 
+        }
+
+        .bg-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: slideFade 25s infinite; 
+        }
+
+        @keyframes slideFade {
+            0% { opacity: 0; transform: scale(1.05); }
+            4% { opacity: 1; transform: scale(1.05); } 
+            16% { opacity: 1; transform: scale(1); }  
+            20% { opacity: 0; transform: scale(1); }  
+            100% { opacity: 0; transform: scale(1.05); }
         }
 
         .hero h1 {
             font-size: 4rem;
+            font-weight: 800;
             margin-bottom: 1rem;
             line-height: 1.2;
+            letter-spacing: -1px;
         }
 
         .hero p {
@@ -191,19 +280,52 @@
             margin-bottom: 1.5rem;
         }
 
-        /* --- 4. GENERAL LAYOUT --- */
+        /* --- 4. GENERAL LAYOUT & PEMISAH SECTION --- */
         .container {
-            padding: 6rem 8%;
+            padding: 7rem 8%; 
+        }
+
+        .alt-bg {
+            background-color: var(--alt-bg);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        body.light-mode .alt-bg {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .section-title {
             font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-weight: 700;
+            margin-bottom: 3.5rem;
             text-align: center;
+            letter-spacing: -0.5px;
         }
 
-        .section-title span {
+        .border-wrap {
             border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+        .shine-title {
+            background: linear-gradient(
+                120deg,
+                var(--text-primary) 30%,
+                var(--accent-color) 50%,
+                var(--text-primary) 70%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 3s linear infinite;
+        }
+
+        @keyframes textShine {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
         }
 
         /* --- 5. ABOUT & SKILLS --- */
@@ -255,24 +377,26 @@
             transition: width 1s ease-in-out;
         }
 
-        /* --- 6. PORTFOLIO GRID --- */
+        /* --- 6. PORTFOLIO GRID REGULER --- */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .project-card {
             background: var(--card-bg);
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             border-color: var(--accent-color);
         }
 
@@ -295,17 +419,22 @@
 
         .card-info {
             padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .card-info h3 {
             margin-bottom: 0.5rem;
             font-size: 1.25rem;
+            font-weight: 700;
         }
 
         .card-info p {
             color: var(--text-secondary);
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
 
         .link-arrow {
@@ -317,64 +446,242 @@
             gap: 5px;
         }
 
-        /* --- 7. FOOTER & SOSIAL MEDIA --- */
-        footer {
+        /* --- TOMBOL MAGIC UNTUK KARTU --- */
+        .btn-magic {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 700;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            z-index: 1;
+            margin-top: auto;
             text-align: center;
-            padding: 5rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
         }
 
-        footer h2 {
-            margin-bottom: 1rem;
+        .btn-magic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--gradient);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-magic:hover {
             color: #fff;
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .btn-magic:hover::before {
+            width: 100%;
+        }
+
+        /* --- TAMPILAN HIGHLIGHT CARD (Modern, Elegan, Melayang) --- */
+        .highlight-card {
+            background: linear-gradient(145deg, var(--card-bg) 40%, rgba(56, 189, 248, 0.08) 100%);
+            border-radius: 32px;
+            padding: 4rem 3rem;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            text-align: center;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        body.light-mode .highlight-card {
+            background: linear-gradient(145deg, #ffffff 40%, #f0f9ff 100%);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(56, 189, 248, 0.2);
+            border-color: rgba(56, 189, 248, 0.8);
+        }
+
+        .highlight-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            font-weight: 800;
+            line-height: 1.3;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .highlight-card p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        /* --- GAMBAR UNTUK PRODUK HIGHLIGHT --- */
+        .product-pic {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s ease;
+        }
+
+        .highlight-card:hover .product-pic {
+            transform: scale(1.05);
+        }
+
+        /* --- 7. FOOTER MODERN FINAL & SOSIAL MEDIA --- */
+        .modern-footer {
+            text-align: center;
+            padding: 5rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.6) 100%); 
+            position: relative;
+        }
+
+        body.light-mode .modern-footer {
+            background: linear-gradient(180deg, transparent 0%, rgba(248, 250, 252, 0.8) 100%);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .social-links {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 1.5rem;
-            margin-bottom: 2rem;
-            margin-top: 1rem;
+            margin-bottom: 2.5rem;
+            margin-top: 1.5rem;
         }
 
         .social-links a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(5px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
-            border: 1px solid transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .social-links a i {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            opacity: 0.85;
+        }
+
+        .social-links a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: 0.6s ease;
+            z-index: -1;
         }
 
         .social-links a:hover {
-            transform: translateY(-5px);
-            color: var(--bg-color);
-            background: var(--accent-color);
-            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
+            transform: translateY(-8px) scale(1.08);
+            background: rgba(255, 255, 255, 0.08);
         }
+        .social-links a:hover i {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .social-links a:hover::after {
+            left: 100%;
+        }
+
+        .social-links a.telegram:hover { border-color: #0088cc; box-shadow: 0 10px 25px rgba(0, 136, 204, 0.4); }
+        .social-links a.telegram:hover i { color: #0088cc; }
+        .social-links a.instagram:hover { border-color: #e1306c; box-shadow: 0 10px 25px rgba(225, 48, 108, 0.4); }
+        .social-links a.instagram:hover i {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .social-links a.youtube:hover { border-color: #ff0000; box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4); }
+        .social-links a.youtube:hover i { color: #ff0000; }
+        .social-links a.x-twitter:hover { border-color: #ffffff; box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4); }
+        .social-links a.x-twitter:hover i { color: #ffffff; }
+        .social-links a.facebook:hover { border-color: #1877f2; box-shadow: 0 10px 25px rgba(24, 119, 242, 0.4); }
+        .social-links a.facebook:hover i { color: #1877f2; }
+        .social-links a.tiktok:hover { border-color: #ffffff; box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2); }
+        .social-links a.tiktok:hover i { color: #ffffff; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2fe; }
+        .social-links a.link:hover { border-color: var(--accent-color); box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4); }
+        .social-links a.link:hover i { color: var(--accent-color); }
 
         .btn-contact-footer {
             padding: 0.8rem 2rem;
-            border: 2px solid var(--accent-color);
+            border: 2px solid rgba(56, 189, 248, 0.6);
             border-radius: 50px;
             color: var(--accent-color);
             text-decoration: none;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             display: inline-block;
             font-weight: bold;
+            font-size: 0.95rem;
         }
 
         .btn-contact-footer:hover {
-            background: var(--accent-color);
-            color: var(--bg-color);
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
             box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .footer-bottom {
+            margin-top: 4rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed rgba(148, 163, 184, 0.3);
+        }
+
+        .copyright-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .footer-link {
+            text-decoration: none;
+            font-weight: 800; 
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
+            padding: 0 4px;
+        }
+
+        .footer-link:hover {
+            transform: scale(1.1) translateY(-3px); 
+            text-shadow: 0 8px 20px rgba(56, 189, 248, 0.5);
         }
 
         /* --- BUTTON KEMBALI KE ATAS --- */
@@ -425,23 +732,13 @@
 
         /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .split-layout {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .navbar {
-                padding: 1rem 5%;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
+            .hero h1 { font-size: 2.5rem; }
+            .split-layout { grid-template-columns: 1fr; gap: 2rem; }
+            .navbar { padding: 1rem 5%; }
+            
+            #toggle-nav { display: none !important; }
+            .hamburger { display: block; }
+            
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -455,9 +752,15 @@
                 clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
                 transition: clip-path 0.4s ease-in-out;
             }
-
             .nav-links.active {
                 clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            
+            .highlight-card {
+                padding: 3rem 1.5rem;
+            }
+            .highlight-card h3 {
+                font-size: 1.8rem;
             }
         }
 
@@ -467,7 +770,6 @@
             transform: translateY(50px);
             transition: all 0.8s ease-out;
         }
-
         .show {
             opacity: 1;
             transform: translateY(0);
@@ -478,25 +780,42 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo">Portofolio Proyek</div>
+        <a href="#home" class="logo">Portofolio Proyek</a>
 
-        <div class="hamburger" id="hamburger">
-            <i class="fas fa-bars"></i>
+        <div class="nav-right">
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#portfolio">Proyek</a></li>
+                <li><a href="#produk">Produk & Affiliate</a></li> 
+                <li><a href="#jasa">Jasa Web</a></li> 
+                <li><a href="#contact">Temukan Saya</a></li>
+                <li><a href="https://t.me/mreizitpie" class="btn-contact-nav">Hubungi Saya</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-btn" aria-label="Ganti Mode">🌙</button>
+                </li>
+            </ul>
+
+            <button id="toggle-nav" class="theme-btn" aria-label="Sembunyikan Menu Navigasi" title="Sembunyikan/Tampilkan Menu">
+                <i class="fas fa-toggle-on"></i>
+            </button>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
-
-        <ul class="nav-links" id="nav-links">
-            <li><a href="#home">Beranda</a></li>
-            <li><a href="#about">Tentang</a></li>
-            <li><a href="#portfolio">Proyek</a></li>
-            <li><a href="#contact">Temukan Saya</a></li>
-            <li><a href="https://t.me/mreizitpie" class="btn-contact-nav">Hubungi Saya</a></li>
-            <li>
-                <button id="theme-toggle" class="theme-btn" aria-label="Ganti Mode">🌙</button>
-            </li>
-        </ul>
     </nav>
 
     <header id="home" class="hero hidden">
+        <div class="hero-bg">
+            <div class="bg-slide" style="background-image: url('w1.jpg'); animation-delay: 0s;"></div>
+            <div class="bg-slide" style="background-image: url('w2.jpg'); animation-delay: 5s;"></div>
+            <div class="bg-slide" style="background-image: url('w3.jpg'); animation-delay: 10s;"></div>
+            <div class="bg-slide" style="background-image: url('w4.jpg'); animation-delay: 15s;"></div>
+            <div class="bg-slide" style="background-image: url('w5.jpg'); animation-delay: 20s;"></div>
+        </div>
+        <div class="hero-overlay"></div>
+
         <div class="hero-content">
             <img src="foto-anda.jpg" alt="Foto Profil" class="profile-pic">
             <h1>Halo, Saya <span style="color:var(--accent-color)">[Alvin Zulian]</span></h1>
@@ -508,55 +827,43 @@
     <section id="about" class="container">
         <div class="split-layout">
             <div class="about-text hidden">
-                <h2 class="section-title" style="text-align: left;">Tentang Saya 🌐</h2>
-                <p>Saya berdedikasi membangun pengalaman web yang intuitif. Dengan latar belakang di pengembangan
-                    front-end dan ketertarikan mendalam pada teknologi AI, saya selalu mencari cara baru untuk
-                    mengoptimalkan alur kerja digital.</p>
-                <p>Fokus saya saat ini adalah menciptakan antarmuka yang tidak hanya indah dilihat tetapi juga
-                    memecahkan masalah nyata pengguna.</p>
+                <h2 class="section-title" style="text-align: left;"><span class="border-wrap"><span class="shine-title">Tentang Saya</span></span> 🌐</h2>
+                <p>Saya berdedikasi membangun pengalaman web yang intuitif. Dengan latar belakang di pengembangan front-end dan ketertarikan mendalam pada teknologi AI, saya selalu mencari cara baru untuk mengoptimalkan alur kerja digital.</p>
+                <p>Fokus saya saat ini adalah menciptakan antarmuka yang tidak hanya indah dilihat tetapi juga memecahkan masalah nyata pengguna.</p>
             </div>
             <div id="skills" class="skills-list hidden">
-                <h2 class="section-title" style="text-align: left;">Keahlian 🛠️</h2>
+                <h2 class="section-title" style="text-align: left;"><span class="border-wrap"><span class="shine-title">Keahlian</span></span> 🛠️</h2>
                 <div class="tags">
                     <div class="skill-item">
                         <div class="skill-info"><span>HTML & CSS</span><span>95%</span></div>
-                        <div class="progress-wrapper">
-                            <div class="progress-bar-fill" style="width: 95%;"></div>
-                        </div>
+                        <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 95%;"></div></div>
                     </div>
                     <div class="skill-item">
                         <div class="skill-info"><span>JavaScript (ES6+)</span><span>85%</span></div>
-                        <div class="progress-wrapper">
-                            <div class="progress-bar-fill" style="width: 85%;"></div>
-                        </div>
+                        <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 85%;"></div></div>
                     </div>
                     <div class="skill-item">
                         <div class="skill-info"><span>PHP & Laravel</span><span>80%</span></div>
-                        <div class="progress-wrapper">
-                            <div class="progress-bar-fill" style="width: 80%;"></div>
-                        </div>
+                        <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 80%;"></div></div>
                     </div>
                     <div class="skill-item">
                         <div class="skill-info"><span>UI/UX Design</span><span>90%</span></div>
-                        <div class="progress-wrapper">
-                            <div class="progress-bar-fill" style="width: 90%;"></div>
-                        </div>
+                        <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 90%;"></div></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="portfolio" class="container">
-        <h2 class="section-title hidden"><span>Proyek Unggulan</span> 📂</h2>
+    <section id="portfolio" class="container alt-bg">
+        <h2 class="section-title hidden"><span class="border-wrap"><span class="shine-title">Proyek Unggulan</span></span> 📂</h2>
         <div class="project-grid">
             <div class="project-card hidden">
                 <div class="card-image"><img src="porto11.png" alt="Portofolio Hobby"></div>
                 <div class="card-info">
                     <h3>Website Portopolio Hobby</h3>
                     <p>Landing page responsif Menampilkan Seluruh Hasil Hobi saya.</p>
-                    <a href="https://alvinzulianputraa.wixsite.com/eizitpie" class="link-arrow">Lihat Portopolio Website
-                        Ini &rarr;</a>
+                    <a href="https://alvinzulianputraa.wixsite.com/eizitpie" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -564,9 +871,7 @@
                 <div class="card-info">
                     <h3>Chitra Wedding Organizer</h3>
                     <p>Landing page responsif untuk Pelayanan Jasa Seputar Wedding Organizer Professional.</p>
-                    <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat
-                        Portopolio Website
-                        Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -574,8 +879,7 @@
                 <div class="card-info">
                     <h3>Eizitpie Otonet Cars</h3>
                     <p>Landing page responsif Penjualan Mobil Bekas Professional dengan UI Elegan dan Terbaik.</p>
-                    <a href="https://sobatwebsitemu.github.io/eizitpiecars/" class="link-arrow">Lihat Portopolio Website
-                        Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/eizitpiecars/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -583,8 +887,7 @@
                 <div class="card-info">
                     <h3>Soree Coffe</h3>
                     <p>Landing page responsif untuk bisnis F&B.</p>
-                    <a href="https://eizitpie15production.github.io/soree/" class="link-arrow">Lihat Portopolio Website
-                        Ini &rarr;</a>
+                    <a href="https://eizitpie15production.github.io/soree/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -592,8 +895,7 @@
                 <div class="card-info">
                     <h3>Pendekar Silat Siak</h3>
                     <p>Melayani Jasa Privat Latihan Silat untuk Berbagai Kalangan dengan praktisi Berpengalaman.</p>
-                    <a href="https://sobatwebsitemu.github.io/portopoliozammi/" class="link-arrow">Lihat
-                        Portopolio Website Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/portopoliozammi/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -601,8 +903,7 @@
                 <div class="card-info">
                     <h3>Kebun Kasih Pangan Ilham</h3>
                     <p>Website Seputar Perkebunan Pribadi Penanaman Cabe dan Terong Untuk Menarik Investor atau Pembeli Hasil Panen Baik Pesan Banyak Maupun Kecil</p>
-                    <a href="https://sobatwebsitemu.github.io/KebunKasihPangan/" class="link-arrow">Lihat
-                        Portopolio Website Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/KebunKasihPangan/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -610,8 +911,7 @@
                 <div class="card-info">
                     <h3>CV Azizah Mandiri</h3>
                     <p>Toko Penyedia Paving Block & Material.</p>
-                    <a href="https://eizitpie15production.github.io/CVAzizahMandiri/" class="link-arrow">Lihat
-                        Portopolio Website Ini &rarr;</a>
+                    <a href="https://eizitpie15production.github.io/CVAzizahMandiri/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -619,8 +919,7 @@
                 <div class="card-info">
                     <h3>X Space Cafe</h3>
                     <p>Landing page responsif untuk bisnis F&B.</p>
-                    <a href="https://sobatwebsitemu.github.io/xspacecafe/" class="link-arrow">Lihat Portopolio Website
-                        Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/xspacecafe/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -628,8 +927,7 @@
                 <div class="card-info">
                     <h3>Galaksi Kos</h3>
                     <p>Landing page responsif Untuk Bisnis Penginapan Kos.</p>
-                    <a href="https://sobatwebsitemu.github.io/GalaksiKos/" class="link-arrow">Lihat Portopolio Website
-                        Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/GalaksiKos/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -637,8 +935,7 @@
                 <div class="card-info">
                     <h3>Mama Iceland</h3>
                     <p>Landing page responsif untuk bisnis F&B Ice Cream.</p>
-                    <a href="https://sobatwebsitemu.github.io/mamaiceland/" class="link-arrow">Lihat Portopolio Website
-                        Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/mamaiceland/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -646,8 +943,7 @@
                 <div class="card-info">
                     <h3>Maldif Home</h3>
                     <p>Landing page responsif Untuk Bisnis Penginapan Kos.</p>
-                    <a href="https://alvinzulian.github.io/maldifhome/" class="link-arrow">Lihat Portopolio Website Ini
-                        &rarr;</a>
+                    <a href="https://alvinzulian.github.io/maldifhome/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -655,9 +951,7 @@
                 <div class="card-info">
                     <h3>Dinamika Rekayasa Utama</h3>
                     <p>Landing page responsif untuk Jasa Pelayanan Seputar Teknik Sipil Pembangunan Professional.</p>
-                    <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat
-                        Portopolio Website
-                        Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -665,38 +959,29 @@
                 <div class="card-info">
                     <h3>Jadwal Imsakiyah IHA Group</h3>
                     <p>Landing page responsif Jadwal Imsakiyah Puasa.</p>
-                    <a href="https://sobatwebsitemu.github.io/jadwalimsakkms/" class="link-arrow">Lihat Portopolio
-                        Website Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/jadwalimsakkms/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
                 <div class="card-image"><img src="porto15.png" alt="chitrawo"></div>
                 <div class="card-info">
                     <h3>Website Curriculum Vitae Digital</h3>
-                    <p>Landing page Website responsif Curriculum Vitae (CV) digital atau halaman profil dari dr. Irvan
-                        Herman Abdullah
-                        Situs ini dirancang untuk menampilkan rekam jejak, portofolio, dan profil Irvan Herman secara
-                        terstruktur.
-                    </p>
-                    <a href="https://sobatwebsitemu.github.io/CVIHA/" class="link-arrow">Lihat
-                        Portopolio Website
-                        Ini &rarr;</a>
+                    <p>Landing page Website responsif Curriculum Vitae (CV) digital atau halaman profil dari dr. Irvan Herman Abdullah. Situs ini dirancang untuk menampilkan rekam jejak, portofolio, dan profil Irvan Herman secara terstruktur.</p>
+                    <a href="https://sobatwebsitemu.github.io/CVIHA/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
-
         </div>
     </section>
 
     <section id="other-projects" class="container">
-        <h2 class="section-title hidden"><span>Proyek Lainnya</span> 📂</h2>
+        <h2 class="section-title hidden"><span class="border-wrap"><span class="shine-title">Proyek Lainnya</span></span> 📂</h2>
         <div class="project-grid">
             <div class="project-card hidden">
                 <div class="card-image"><img src="porto1.png" alt="Eizitpie Production"></div>
                 <div class="card-info">
                     <h3>Eizitpie Production</h3>
                     <p>Platform agensi kreatif solusi AI.</p>
-                    <a href="https://eizitpie15production.github.io/portopoliosaya/" class="link-arrow">Lihat Portopolio
-                        Website Ini &rarr;</a>
+                    <a href="https://eizitpie15production.github.io/portopoliosaya/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -704,8 +989,7 @@
                 <div class="card-info">
                     <h3>Infografis Pemrograman</h3>
                     <p>Modul edukasi interaktif untuk pemula.</p>
-                    <a href="https://eizitpie15production.github.io/infografisbapro/" class="link-arrow">Lihat
-                        Portopolio Website Ini &rarr;</a>
+                    <a href="https://eizitpie15production.github.io/infografisbapro/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
             <div class="project-card hidden">
@@ -713,43 +997,88 @@
                 <div class="card-info">
                     <h3>Jadwal Imsakiyah Ramadhan</h3>
                     <p>Landing page responsif Jadwal Imsakiyah.</p>
-                    <a href="https://sobatwebsitemu.github.io/jadwalimsakiyahramadhan/" class="link-arrow">Lihat
-                        Portopolio Website Ini &rarr;</a>
+                    <a href="https://sobatwebsitemu.github.io/jadwalimsakiyahramadhan/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="contact" class="hidden">
-        <h2 style="margin-bottom: 0.5rem;">Mari Terhubung! 🤝</h2>
-        <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Temukan saya di media sosial berikut:</p>
+    <section id="produk" class="container alt-bg">
+        <h2 class="section-title hidden">
+            <span class="border-wrap"><span class="shine-title">Produk Digital & Affiliate Produk</span></span> 🛒
+        </h2>
+        
+        <div class="project-grid">
+            <div class="highlight-card hidden" style="padding: 3rem 2rem;">
+                <img src="pd1.png" alt="Produk Digital Eizitpie" class="product-pic">
+                <h3 style="font-size: 1.6rem;">Produk Digital Eksklusif</h3>
+                <p style="font-size: 1rem; max-width: 100%;">Dapatkan koleksi aset digital, *template* desain, dan alat bantu pengembangan web berkualitas tinggi untuk mempermudah alur kerja kreatif Anda.</p>
+                <a href="https://lynk.id/eizitpie" target="_blank" class="btn-magic" style="margin-top: auto; padding: 0.8rem 2rem;">
+                    Jelajahi Produk <i class="fas fa-external-link-alt" style="margin-left:8px;"></i>
+                </a>
+            </div>
 
-        <div class="social-links">
-            <a href="https://t.me/mreizitpie" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-            <a href="https://www.instagram.com/eizitpie" target="_blank" aria-label="Instagram"><i
-                    class="fab fa-instagram"></i></a>
-            <a href="https://www.youtube.com/@eizitpie" target="_blank" aria-label="YouTube"><i
-                    class="fab fa-youtube"></i></a>
-            <a href="https://x.com" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-            <a href="https://www.facebook.com/profile.php?id=100088832516786&_rdc=1&_rdr#" target="_blank"
-                aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.tiktok.com/@eizitpie" target="_blank" aria-label="TikTok"><i
-                    class="fab fa-tiktok"></i></a>
-            <a href="https://lynk.id/eizitpie" target="_blank" aria-label="Lynk ID"><i class="fas fa-link"></i></a>
-            <a href="https://infomedsoseizitpie.carrd.co/" target="_blank" aria-label="carrd.co"><i
-                    class="fas fa-link"></i></a>
+            <div class="highlight-card hidden" style="padding: 3rem 2rem;">
+                <img src="af1.png" alt="Affiliate Produk Eizitpie" class="product-pic">
+                <h3 style="font-size: 1.6rem;">Rekomendasi Affiliate Produk</h3>
+                <p style="font-size: 1rem; max-width: 100%;">Temukan daftar rekomendasi produk fisik dan alat pendukung tepercaya yang saya pilih khusus untuk menunjang gaya hidup digital Anda.</p>
+                <a href="https://collshp.com/eizitpie" target="_blank" class="btn-magic" style="margin-top: auto; padding: 0.8rem 2rem;">
+                    Lihat Koleksi <i class="fas fa-external-link-alt" style="margin-left:8px;"></i>
+                </a>
+            </div>
         </div>
+    </section>
 
+    <section id="jasa" class="container">
+        <h2 class="section-title hidden">
+            <span class="border-wrap"><span class="shine-title">Jasa Buat Website</span></span> 💻
+        </h2>
+        
+        <div class="highlight-card hidden" style="max-width: 900px; margin: 0 auto;">
+            <center>
+                <img src="foto-andaai.png" alt="Profil AI Jasa" class="profile-pic" style="margin-bottom: 2rem; width: 140px; height: 140px;">
+            </center>
+            
+            <h3>Website Profesional, Cepat & Responsif</h3>
+            <p style="max-width: 700px; margin-left: auto; margin-right: auto;">
+                Tingkatkan kredibilitas bisnis Anda dengan website modern yang dioptimalkan untuk performa dan SEO. Mulai dari Landing Page, Company Profile, hingga Toko Online, saya siap mewujudkan visi digital Anda menjadi kenyataan dengan desain UI/UX yang elegan dan fungsional.
+            </p>
+            <a href="https://t.me/mreizitpie" target="_blank" class="btn-magic" style="font-size: 1.1rem; padding: 1rem 3rem; border-radius: 50px; margin-top: 1rem;">
+                <i class="fab fa-telegram-plane" style="margin-right: 8px; font-size: 1.3rem;"></i> Konsultasi & Pesan Sekarang
+            </a>
+        </div>
+    </section>
+
+    <footer id="contact" class="modern-footer hidden alt-bg">
+        <h2 style="margin-bottom: 0.5rem;"><span class="shine-title">Mari Terhubung!</span> 🤝</h2>
+        <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Temukan saya di media sosial berikut:</p>
+    
+        <div class="social-links">
+            <a href="https://t.me/mreizitpie" target="_blank" aria-label="Telegram" class="telegram"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.instagram.com/eizitpie" target="_blank" aria-label="Instagram" class="instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@eizitpie" target="_blank" aria-label="YouTube" class="youtube"><i class="fab fa-youtube"></i></a>
+            <a href="https://x.com" target="_blank" aria-label="X (Twitter)" class="x-twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=100088832516786&_rdc=1&_rdr#" target="_blank" aria-label="Facebook" class="facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.tiktok.com/@eizitpie" target="_blank" aria-label="TikTok" class="tiktok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://lynk.id/eizitpie" target="_blank" aria-label="Lynk ID" class="link"><i class="fas fa-link"></i></a>
+            <a href="https://infomedsoseizitpie.carrd.co/" target="_blank" aria-label="carrd.co" class="link"><i class="fas fa-link"></i></a>
+        </div>
+    
         <a href="mailto:email@anda.com" class="btn-contact-footer">Kirim Email</a>
-        <br><br><br>
-        <p style="font-size: 0.8rem; color: var(--text-secondary);">&copy; 2025 [CV Portopolio]. Dibuat Oleh Eizitpie
-            Production</p>
+        
+        <div class="footer-bottom">
+            <p class="copyright-text">
+                &copy; 2025 [CV Portopolio]. Dibuat Oleh 
+                <a href="https://www.instagram.com/eizitpie" target="_blank" class="shine-title footer-link">
+                    Eizitpie Production
+                </a>.
+            </p>
+        </div>
     </footer>
 
     <a href="#" id="backToTop" class="btn-up">&#8679;</a>
 
     <script>
-        // 1. Logic Tombol Kembali ke Atas
         const btnUp = document.getElementById('backToTop');
         window.addEventListener('scroll', function () {
             if (window.scrollY > 300) { btnUp.classList.add('show'); }
@@ -761,7 +1090,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // 2. Logic Mode Gelap / Terang
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
         themeToggle.addEventListener('click', () => {
@@ -770,9 +1098,22 @@
             else { themeToggle.innerHTML = '🌙'; }
         });
 
-        // 3. Logic Hamburger Menu
-        const hamburger = document.getElementById('hamburger');
+        const toggleNavBtn = document.getElementById('toggle-nav');
         const navLinks = document.getElementById('nav-links');
+        const toggleIcon = toggleNavBtn.querySelector('i');
+
+        toggleNavBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('hide-nav');
+            if (navLinks.classList.contains('hide-nav')) {
+                toggleIcon.classList.remove('fa-toggle-on');
+                toggleIcon.classList.add('fa-toggle-off');
+            } else {
+                toggleIcon.classList.remove('fa-toggle-off');
+                toggleIcon.classList.add('fa-toggle-on');
+            }
+        });
+
+        const hamburger = document.getElementById('hamburger');
 
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
@@ -784,9 +1125,7 @@
             });
         });
 
-        // 4. Logic Animasi Scroll (Scroll Reveal)
         const hiddenElements = document.querySelectorAll('.hidden');
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -795,7 +1134,6 @@
             });
         });
 
-        // Baris ini yang menjalankan observasi ke semua elemen 'hidden'
         hiddenElements.forEach((el) => observer.observe(el));
     </script>
 </body>
