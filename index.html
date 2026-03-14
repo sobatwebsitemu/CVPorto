@@ -175,7 +175,7 @@
             transition: all 0.3s ease;
             text-decoration: none;
             font-weight: 700;
-            animation: pulseGlow 2s infinite; /* Efek berdenyut */
+            animation: pulseGlow 2s infinite; 
         }
 
         .btn-contact-nav:hover {
@@ -184,7 +184,7 @@
             border-color: transparent;
             box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
             transform: translateY(-2px);
-            animation: none; /* Matikan pulse saat dihover */
+            animation: none; 
         }
 
         body.light-mode .btn-contact-nav .notif-dot {
@@ -700,12 +700,32 @@
             margin-bottom: 0;
         }
 
+        /* --- STRUKTUR CSS SOSIAL MEDIA TERBARU (DENGAN LABEL) --- */
         .social-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center; 
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            gap: 2rem; /* Jarak sedikit dilebarkan untuk memberi ruang pada teks */
+            margin-bottom: 3.5rem;
+        }
+
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .social-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .social-item:hover .social-label {
+            color: var(--accent-color);
         }
 
         .social-links a {
@@ -717,12 +737,11 @@
             border-radius: 50%;
             text-decoration: none;
             position: relative;
-            overflow: visible; /* Diubah agar notifikasi dot bisa keluar radius sedikit */
+            overflow: visible;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: none;
         }
 
-        /* Glass effect diperbaiki agar tetap di dalam border bulat meski overflow visible */
         .social-links a::after {
             content: '';
             position: absolute;
@@ -741,7 +760,6 @@
             transition: transform 0.4s ease;
         }
 
-        /* Menambahkan efek ring dan pulse spesifik untuk telegram */
         .social-links a.has-notif {
             animation: pulseGlow 2.5s infinite;
         }
@@ -756,18 +774,20 @@
         .social-links a.x-twitter { background: #14171a; }
         .social-links a.facebook { background: #1877f2; }
         .social-links a.tiktok { background: #000000; }
-        .social-links a.link { background: var(--accent-color); }
+        .social-links a.lynk { background: #10b981; } 
+        .social-links a.carrd { background: #6366f1; } 
 
-        .social-links a:hover { transform: translateY(-8px) scale(1.1); animation: none; }
-        .social-links a:hover i { transform: scale(1.15); animation: none; }
+        .social-item:hover a { transform: translateY(-8px) scale(1.1); animation: none; }
+        .social-item:hover a i { transform: scale(1.15); animation: none; }
         
-        .social-links a.telegram:hover { box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); }
-        .social-links a.instagram:hover { box-shadow: 0 10px 20px rgba(225, 48, 108, 0.4); }
-        .social-links a.youtube:hover { box-shadow: 0 10px 20px rgba(255, 0, 0, 0.4); }
-        .social-links a.x-twitter:hover { box-shadow: 0 10px 20px rgba(20, 23, 26, 0.4); }
-        .social-links a.facebook:hover { box-shadow: 0 10px 20px rgba(24, 119, 242, 0.4); }
-        .social-links a.tiktok:hover { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); }
-        .social-links a.link:hover { box-shadow: 0 10px 20px rgba(56, 189, 248, 0.4); }
+        .social-item:hover a.telegram { box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); }
+        .social-item:hover a.instagram { box-shadow: 0 10px 20px rgba(225, 48, 108, 0.4); }
+        .social-item:hover a.youtube { box-shadow: 0 10px 20px rgba(255, 0, 0, 0.4); }
+        .social-item:hover a.x-twitter { box-shadow: 0 10px 20px rgba(20, 23, 26, 0.4); }
+        .social-item:hover a.facebook { box-shadow: 0 10px 20px rgba(24, 119, 242, 0.4); }
+        .social-item:hover a.tiktok { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); }
+        .social-item:hover a.lynk { box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4); }
+        .social-item:hover a.carrd { box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4); }
 
         .btn-email-large {
             display: inline-flex;
@@ -945,6 +965,9 @@
                 height: 35px;
                 font-size: 1rem;
             }
+            
+            .social-links { gap: 1rem; }
+            .social-label { font-size: 0.75rem; }
         }
 
         /* --- ANIMASI SCROLL --- */
@@ -1283,18 +1306,62 @@
                 
                 <div class="contact-actions">
                     <div class="social-links">
-                        <a href="https://t.me/mreizitpie" target="_blank" aria-label="Telegram" class="telegram has-notif">
-                            <span class="notif-dot"></span>
-                            <i class="fab fa-telegram ring-icon"></i>
-                        </a>
+                        <div class="social-item">
+                            <a href="https://t.me/mreizitpie" target="_blank" aria-label="Telegram" class="telegram has-notif">
+                                <span class="notif-dot"></span>
+                                <i class="fab fa-telegram ring-icon"></i>
+                            </a>
+                            <span class="social-label">Telegram</span>
+                        </div>
                         
-                        <a href="https://www.instagram.com/eizitpie" target="_blank" aria-label="Instagram" class="instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.youtube.com/@eizitpie" target="_blank" aria-label="YouTube" class="youtube"><i class="fab fa-youtube"></i></a>
-                        <a href="https://x.com" target="_blank" aria-label="X (Twitter)" class="x-twitter"><i class="fab fa-x-twitter"></i></a>
-                        <a href="https://www.facebook.com/profile.php?id=100088832516786&_rdc=1&_rdr#" target="_blank" aria-label="Facebook" class="facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.tiktok.com/@eizitpie" target="_blank" aria-label="TikTok" class="tiktok"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://lynk.id/eizitpie" target="_blank" aria-label="Lynk ID" class="link"><i class="fas fa-link"></i></a>
-                        <a href="https://infomedsoseizitpie.carrd.co/" target="_blank" aria-label="carrd.co" class="link"><i class="fas fa-link"></i></a>
+                        <div class="social-item">
+                            <a href="https://www.instagram.com/eizitpie" target="_blank" aria-label="Instagram" class="instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <span class="social-label">Instagram</span>
+                        </div>
+                        
+                        <div class="social-item">
+                            <a href="https://www.youtube.com/@eizitpie" target="_blank" aria-label="YouTube" class="youtube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <span class="social-label">YouTube</span>
+                        </div>
+                        
+                        <div class="social-item">
+                            <a href="https://x.com" target="_blank" aria-label="X (Twitter)" class="x-twitter">
+                                <i class="fab fa-x-twitter"></i>
+                            </a>
+                            <span class="social-label">X / Twitter</span>
+                        </div>
+                        
+                        <div class="social-item">
+                            <a href="https://www.facebook.com/profile.php?id=100088832516786&_rdc=1&_rdr#" target="_blank" aria-label="Facebook" class="facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <span class="social-label">Facebook</span>
+                        </div>
+                        
+                        <div class="social-item">
+                            <a href="https://www.tiktok.com/@eizitpie" target="_blank" aria-label="TikTok" class="tiktok">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                            <span class="social-label">TikTok</span>
+                        </div>
+                        
+                        <div class="social-item">
+                            <a href="https://lynk.id/eizitpie" target="_blank" aria-label="Lynk ID" class="lynk">
+                                <i class="fas fa-shop"></i>
+                            </a>
+                            <span class="social-label">Lynk.id</span>
+                        </div>
+                        
+                        <div class="social-item">
+                            <a href="https://infomedsoseizitpie.carrd.co/" target="_blank" aria-label="carrd.co" class="carrd">
+                                <i class="fas fa-id-card"></i>
+                            </a>
+                            <span class="social-label">Carrd Profil</span>
+                        </div>
                     </div>
                     
                     <a href="mailto:eizitpie1509@gmail.com" class="btn-email-large">
