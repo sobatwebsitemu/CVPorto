@@ -61,12 +61,43 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* --- ANIMASI NOTIFIKASI & DERING --- */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+
+        @keyframes ringShake {
+            0%, 100% { transform: rotate(0); }
+            10%, 30%, 50% { transform: rotate(15deg) scale(1.1); }
+            20%, 40% { transform: rotate(-15deg) scale(1.1); }
+            60% { transform: rotate(0) scale(1); }
+        }
+
+        .notif-dot {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 12px;
+            height: 12px;
+            background-color: #ef4444; 
+            border-radius: 50%;
+            border: 2px solid var(--nav-bg);
+            z-index: 10;
+        }
+
+        .ring-icon {
+            animation: ringShake 2.5s infinite ease-in-out;
+            transform-origin: top center; 
+        }
+
         /* --- 2. NAVBAR --- */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 8%;
+            padding: 1.2rem 4%;
             position: fixed;
             width: 100%;
             top: 0;
@@ -107,7 +138,7 @@
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 2.5rem;
+            gap: 1.2rem;
             align-items: center;
             transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
         }
@@ -115,7 +146,7 @@
         .nav-links.hide-nav {
             opacity: 0;
             visibility: hidden;
-            transform: translateX(20px);
+            transform: translateX(30px);
             pointer-events: none;
         }
 
@@ -132,19 +163,32 @@
         }
 
         .btn-contact-nav {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 0.6rem 1.5rem;
+            background: rgba(56, 189, 248, 0.08);
             border: 1px solid var(--accent-color);
             border-radius: 50px;
             color: var(--accent-color) !important;
             transition: all 0.3s ease;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
+            animation: pulseGlow 2s infinite; /* Efek berdenyut */
         }
 
         .btn-contact-nav:hover {
-            background: var(--accent-color);
-            color: var(--bg-color) !important;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            background: var(--gradient);
+            color: #fff !important;
+            border-color: transparent;
+            box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
+            transform: translateY(-2px);
+            animation: none; /* Matikan pulse saat dihover */
+        }
+
+        body.light-mode .btn-contact-nav .notif-dot {
+            border-color: #ffffff;
         }
 
         .theme-btn {
@@ -166,7 +210,7 @@
             background: var(--accent-color);
             border-color: var(--accent-color);
             color: #fff;
-            transform: rotate(20deg);
+            transform: scale(1.1); 
         }
 
         .hamburger {
@@ -440,12 +484,34 @@
         }
 
         .link-arrow {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            margin-top: auto;
+        }
+
+        .link-arrow i {
+            transition: transform 0.3s ease;
+        }
+
+        .link-arrow:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .link-arrow:hover i {
+            transform: translateX(5px);
         }
 
         .btn-magic {
@@ -550,7 +616,7 @@
             transform: scale(1.05);
         }
 
-        /* --- 7. FOOTER & KONTAK --- */
+        /* --- 7. FOOTER & KONTAK (TATA LETAK BARU) --- */
         .modern-footer {
             padding: 7rem 8% 2rem;
             background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.8) 100%);
@@ -563,27 +629,33 @@
         }
 
         .contact-card {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(56, 189, 248, 0.2); 
             border-radius: 32px;
-            padding: 4rem;
-            max-width: 1100px;
+            padding: 5rem 3rem; 
+            max-width: 900px; 
             margin: 0 auto 5rem auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255,255,255,0.02);
             position: relative;
             overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 0 30px rgba(56, 189, 248, 0.05);
         }
 
         body.light-mode .contact-card {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
         }
 
         .contact-card::before {
@@ -598,9 +670,20 @@
             pointer-events: none;
         }
 
-        .contact-info, .contact-actions {
+        .contact-info {
             position: relative;
             z-index: 1;
+            margin-bottom: 3rem; 
+            max-width: 700px;
+        }
+
+        .contact-actions {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .contact-info h3 {
@@ -617,29 +700,29 @@
             margin-bottom: 0;
         }
 
-        /* --- DESAIN GLOSSY IKON MEDIA SOSIAL --- */
         .social-links {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center; 
             gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
 
         .social-links a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
+            width: 55px; 
+            height: 55px;
             border-radius: 50%;
             text-decoration: none;
             position: relative;
-            overflow: hidden;
+            overflow: visible; /* Diubah agar notifikasi dot bisa keluar radius sedikit */
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: none;
         }
 
-        /* Efek Potongan Kaca Diagonal */
+        /* Glass effect diperbaiki agar tetap di dalam border bulat meski overflow visible */
         .social-links a::after {
             content: '';
             position: absolute;
@@ -647,17 +730,26 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.25) 50%, transparent 50%, transparent 100%);
             z-index: 1;
             pointer-events: none;
+            border-radius: 50%;
         }
 
         .social-links a i {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #ffffff !important;
             position: relative;
             z-index: 2;
             transition: transform 0.4s ease;
         }
 
-        /* Warna Solid Tiap Merek */
+        /* Menambahkan efek ring dan pulse spesifik untuk telegram */
+        .social-links a.has-notif {
+            animation: pulseGlow 2.5s infinite;
+        }
+        
+        body.light-mode .social-links a.has-notif .notif-dot {
+            border-color: #ffffff;
+        }
+
         .social-links a.telegram { background: #0088cc; }
         .social-links a.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .social-links a.youtube { background: #ff0000; }
@@ -666,9 +758,8 @@
         .social-links a.tiktok { background: #000000; }
         .social-links a.link { background: var(--accent-color); }
 
-        /* Efek Hover */
-        .social-links a:hover { transform: translateY(-8px) scale(1.1); }
-        .social-links a:hover i { transform: scale(1.15); }
+        .social-links a:hover { transform: translateY(-8px) scale(1.1); animation: none; }
+        .social-links a:hover i { transform: scale(1.15); animation: none; }
         
         .social-links a.telegram:hover { box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); }
         .social-links a.instagram:hover { box-shadow: 0 10px 20px rgba(225, 48, 108, 0.4); }
@@ -677,7 +768,6 @@
         .social-links a.facebook:hover { box-shadow: 0 10px 20px rgba(24, 119, 242, 0.4); }
         .social-links a.tiktok:hover { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); }
         .social-links a.link:hover { box-shadow: 0 10px 20px rgba(56, 189, 248, 0.4); }
-        /* --------------------------------------- */
 
         .btn-email-large {
             display: inline-flex;
@@ -685,13 +775,14 @@
             justify-content: center;
             gap: 12px;
             width: 100%;
+            max-width: 400px; 
             padding: 1.2rem;
             background: var(--gradient);
             color: #fff;
             font-size: 1.1rem;
             font-weight: 700;
             text-decoration: none;
-            border-radius: 16px;
+            border-radius: 50px; 
             box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -796,9 +887,6 @@
             box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
         }
 
-        .toggle-collapse i { transition: transform 0.4s ease; }
-        .toggle-collapse.rotated i { transform: rotate(180deg); }
-
         .section-content {
             transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
             max-height: 5000px; 
@@ -846,13 +934,9 @@
             .highlight-card h3 { font-size: 1.8rem; }
 
             .contact-card {
-                grid-template-columns: 1fr;
-                padding: 2.5rem 1.5rem;
-                text-align: center;
-                gap: 2.5rem;
+                padding: 3rem 1.5rem;
             }
             .contact-info h3 { font-size: 2.2rem; }
-            .social-links { justify-content: center; }
 
             .toggle-collapse {
                 top: 7rem;
@@ -889,14 +973,19 @@
                 <li><a href="#produk">Produk & Affiliate</a></li> 
                 <li><a href="#jasa">Jasa Web</a></li> 
                 <li><a href="#contact">Temukan Saya</a></li>
-                <li><a href="https://t.me/mreizitpie" class="btn-contact-nav">Hubungi Saya</a></li>
+                <li>
+                    <a href="https://t.me/mreizitpie" class="btn-contact-nav">
+                        <span class="notif-dot"></span>
+                        <i class="fas fa-bell ring-icon"></i> Hubungi Saya
+                    </a>
+                </li>
                 <li>
                     <button id="theme-toggle" class="theme-btn" aria-label="Ganti Mode">🌙</button>
                 </li>
             </ul>
 
-            <button id="toggle-nav" class="theme-btn" aria-label="Sembunyikan Menu Navigasi" title="Sembunyikan/Tampilkan Menu">
-                <i class="fas fa-toggle-on"></i>
+            <button id="toggle-nav" class="theme-btn" aria-label="Sembunyikan Menu" title="Sembunyikan Menu">
+                <i class="fas fa-angles-right"></i>
             </button>
 
             <div class="hamburger" id="hamburger">
@@ -925,7 +1014,7 @@
 
     <section id="about" class="container">
         <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
-            <i class="fas fa-chevron-up"></i>
+            <i class="fas fa-minus"></i>
         </button>
         
         <h2 class="section-title hidden"><span class="border-wrap"><span class="shine-title">Profil & Keahlian</span></span> 👨‍💻</h2>
@@ -964,7 +1053,7 @@
 
     <section id="portfolio" class="container alt-bg">
         <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
-            <i class="fas fa-chevron-up"></i>
+            <i class="fas fa-minus"></i>
         </button>
         <h2 class="section-title hidden"><span class="border-wrap"><span class="shine-title">Proyek Unggulan</span></span> 📂</h2>
         
@@ -975,7 +1064,7 @@
                     <div class="card-info">
                         <h3>Website Portopolio Hobby</h3>
                         <p>Landing page responsif Menampilkan Seluruh Hasil Hobi saya.</p>
-                        <a href="https://alvinzulianputraa.wixsite.com/eizitpie" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://alvinzulianputraa.wixsite.com/eizitpie" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -983,7 +1072,7 @@
                     <div class="card-info">
                         <h3>Chitra Wedding Organizer</h3>
                         <p>Landing page responsif untuk Pelayanan Jasa Seputar Wedding Organizer Professional.</p>
-                        <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -991,7 +1080,7 @@
                     <div class="card-info">
                         <h3>Eizitpie Otonet Cars</h3>
                         <p>Landing page responsif Penjualan Mobil Bekas Professional dengan UI Elegan dan Terbaik.</p>
-                        <a href="https://sobatwebsitemu.github.io/eizitpiecars/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/eizitpiecars/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -999,7 +1088,7 @@
                     <div class="card-info">
                         <h3>Soree Coffe</h3>
                         <p>Landing page responsif untuk bisnis F&B.</p>
-                        <a href="https://eizitpie15production.github.io/soree/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://eizitpie15production.github.io/soree/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1007,7 +1096,7 @@
                     <div class="card-info">
                         <h3>Pendekar Silat Siak</h3>
                         <p>Melayani Jasa Privat Latihan Silat untuk Berbagai Kalangan dengan praktisi Berpengalaman.</p>
-                        <a href="https://sobatwebsitemu.github.io/portopoliozammi/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/portopoliozammi/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1015,7 +1104,7 @@
                     <div class="card-info">
                         <h3>Kebun Kasih Pangan Ilham</h3>
                         <p>Website Seputar Perkebunan Pribadi Penanaman Cabe dan Terong Untuk Menarik Investor atau Pembeli Hasil Panen Baik Pesan Banyak Maupun Kecil</p>
-                        <a href="https://sobatwebsitemu.github.io/KebunKasihPangan/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/KebunKasihPangan/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1023,7 +1112,7 @@
                     <div class="card-info">
                         <h3>CV Azizah Mandiri</h3>
                         <p>Toko Penyedia Paving Block & Material.</p>
-                        <a href="https://eizitpie15production.github.io/CVAzizahMandiri/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://eizitpie15production.github.io/CVAzizahMandiri/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1031,7 +1120,7 @@
                     <div class="card-info">
                         <h3>X Space Cafe</h3>
                         <p>Landing page responsif untuk bisnis F&B.</p>
-                        <a href="https://sobatwebsitemu.github.io/xspacecafe/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/xspacecafe/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1039,7 +1128,7 @@
                     <div class="card-info">
                         <h3>Galaksi Kos</h3>
                         <p>Landing page responsif Untuk Bisnis Penginapan Kos.</p>
-                        <a href="https://sobatwebsitemu.github.io/GalaksiKos/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/GalaksiKos/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1047,7 +1136,7 @@
                     <div class="card-info">
                         <h3>Mama Iceland</h3>
                         <p>Landing page responsif untuk bisnis F&B Ice Cream.</p>
-                        <a href="https://sobatwebsitemu.github.io/mamaiceland/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/mamaiceland/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1055,7 +1144,7 @@
                     <div class="card-info">
                         <h3>Maldif Home</h3>
                         <p>Landing page responsif Untuk Bisnis Penginapan Kos.</p>
-                        <a href="https://alvinzulian.github.io/maldifhome/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://alvinzulian.github.io/maldifhome/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1063,7 +1152,7 @@
                     <div class="card-info">
                         <h3>Dinamika Rekayasa Utama</h3>
                         <p>Landing page responsif untuk Jasa Pelayanan Seputar Teknik Sipil Pembangunan Professional.</p>
-                        <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1071,7 +1160,7 @@
                     <div class="card-info">
                         <h3>Jadwal Imsakiyah IHA Group</h3>
                         <p>Landing page responsif Jadwal Imsakiyah Puasa.</p>
-                        <a href="https://sobatwebsitemu.github.io/jadwalimsakkms/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/jadwalimsakkms/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1079,7 +1168,7 @@
                     <div class="card-info">
                         <h3>Website Curriculum Vitae Digital</h3>
                         <p>Landing page Website responsif Curriculum Vitae (CV) digital atau halaman profil dari dr. Irvan Herman Abdullah. Situs ini dirancang untuk menampilkan rekam jejak, portofolio, dan profil Irvan Herman secara terstruktur.</p>
-                        <a href="https://sobatwebsitemu.github.io/CVIHA/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/CVIHA/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -1088,7 +1177,7 @@
 
     <section id="other-projects" class="container">
         <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
-            <i class="fas fa-chevron-up"></i>
+            <i class="fas fa-minus"></i>
         </button>
         <h2 class="section-title hidden"><span class="border-wrap"><span class="shine-title">Proyek Lainnya</span></span> 📂</h2>
         
@@ -1099,7 +1188,7 @@
                     <div class="card-info">
                         <h3>Eizitpie Production</h3>
                         <p>Platform agensi kreatif solusi AI.</p>
-                        <a href="https://eizitpie15production.github.io/portopoliosaya/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://eizitpie15production.github.io/portopoliosaya/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1107,7 +1196,7 @@
                     <div class="card-info">
                         <h3>Infografis Pemrograman</h3>
                         <p>Modul edukasi interaktif untuk pemula.</p>
-                        <a href="https://eizitpie15production.github.io/infografisbapro/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://eizitpie15production.github.io/infografisbapro/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card hidden">
@@ -1115,7 +1204,7 @@
                     <div class="card-info">
                         <h3>Jadwal Imsakiyah Ramadhan</h3>
                         <p>Landing page responsif Jadwal Imsakiyah.</p>
-                        <a href="https://sobatwebsitemu.github.io/jadwalimsakiyahramadhan/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                        <a href="https://sobatwebsitemu.github.io/jadwalimsakiyahramadhan/" class="link-arrow">Telusuri Website ini <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -1124,7 +1213,7 @@
 
     <section id="produk" class="container alt-bg">
         <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
-            <i class="fas fa-chevron-up"></i>
+            <i class="fas fa-minus"></i>
         </button>
         <h2 class="section-title hidden">
             <span class="border-wrap"><span class="shine-title">Produk Digital & Affiliate</span></span> 🛒
@@ -1155,7 +1244,7 @@
 
     <section id="jasa" class="container">
         <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
-            <i class="fas fa-chevron-up"></i>
+            <i class="fas fa-minus"></i>
         </button>
         <h2 class="section-title hidden">
             <span class="border-wrap"><span class="shine-title">Jasa Buat Website</span></span> 💻
@@ -1180,7 +1269,7 @@
 
     <footer id="contact" class="modern-footer hidden alt-bg">
         <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
-            <i class="fas fa-chevron-up"></i>
+            <i class="fas fa-minus"></i>
         </button>
 
         <h2 class="section-title hidden" style="margin-bottom: 2.5rem;"><span class="border-wrap"><span class="shine-title">Temukan Saya</span></span> 📞</h2>
@@ -1194,7 +1283,11 @@
                 
                 <div class="contact-actions">
                     <div class="social-links">
-                        <a href="https://t.me/mreizitpie" target="_blank" aria-label="Telegram" class="telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="https://t.me/mreizitpie" target="_blank" aria-label="Telegram" class="telegram has-notif">
+                            <span class="notif-dot"></span>
+                            <i class="fab fa-telegram ring-icon"></i>
+                        </a>
+                        
                         <a href="https://www.instagram.com/eizitpie" target="_blank" aria-label="Instagram" class="instagram"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.youtube.com/@eizitpie" target="_blank" aria-label="YouTube" class="youtube"><i class="fab fa-youtube"></i></a>
                         <a href="https://x.com" target="_blank" aria-label="X (Twitter)" class="x-twitter"><i class="fab fa-x-twitter"></i></a>
@@ -1204,7 +1297,7 @@
                         <a href="https://infomedsoseizitpie.carrd.co/" target="_blank" aria-label="carrd.co" class="link"><i class="fas fa-link"></i></a>
                     </div>
                     
-                    <a href="mailto:email@anda.com" class="btn-email-large">
+                    <a href="mailto:eizitpie1509@gmail.com" class="btn-email-large">
                         <i class="fas fa-envelope"></i> Kirim Pesan Email
                     </a>
                 </div>
@@ -1226,8 +1319,7 @@
     <script>
         document.querySelectorAll('.toggle-collapse').forEach(button => {
             button.addEventListener('click', function() {
-                this.classList.toggle('rotated');
-                
+                const icon = this.querySelector('i');
                 const section = this.closest('section, footer');
                 const content = section.querySelector('.section-content');
                 
@@ -1235,10 +1327,16 @@
                     content.classList.remove('collapsed');
                     section.classList.remove('collapsed-section'); 
                     this.setAttribute('aria-label', 'Sembunyikan Bagian');
+                    
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
                 } else {
                     content.classList.add('collapsed');
                     section.classList.add('collapsed-section'); 
                     this.setAttribute('aria-label', 'Tampilkan Bagian');
+                    
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
                 }
             });
         });
@@ -1269,11 +1367,13 @@
         toggleNavBtn.addEventListener('click', () => {
             navLinks.classList.toggle('hide-nav');
             if (navLinks.classList.contains('hide-nav')) {
-                toggleIcon.classList.remove('fa-toggle-on');
-                toggleIcon.classList.add('fa-toggle-off');
+                toggleIcon.classList.remove('fa-angles-right');
+                toggleIcon.classList.add('fa-angles-left');
+                toggleNavBtn.setAttribute('title', 'Tampilkan Menu');
             } else {
-                toggleIcon.classList.remove('fa-toggle-off');
-                toggleIcon.classList.add('fa-toggle-on');
+                toggleIcon.classList.remove('fa-angles-left');
+                toggleIcon.classList.add('fa-angles-right');
+                toggleNavBtn.setAttribute('title', 'Sembunyikan Menu');
             }
         });
 
