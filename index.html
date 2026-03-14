@@ -283,6 +283,8 @@
         /* --- 4. GENERAL LAYOUT --- */
         .container {
             padding: 7rem 8%; 
+            position: relative; 
+            transition: padding 0.4s ease;
         }
 
         .alt-bg {
@@ -548,11 +550,12 @@
             transform: scale(1.05);
         }
 
-        /* --- 7. FOOTER & KONTAK (Glassmorphism + Icon Elegan) --- */
+        /* --- 7. FOOTER & KONTAK --- */
         .modern-footer {
-            padding: 6rem 5% 2rem;
+            padding: 7rem 8% 2rem;
             background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.8) 100%);
-            position: relative;
+            position: relative; 
+            transition: padding 0.4s ease;
         }
 
         body.light-mode .modern-footer {
@@ -600,7 +603,7 @@
             z-index: 1;
         }
 
-        .contact-info h2 {
+        .contact-info h3 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 1.5rem;
@@ -614,11 +617,11 @@
             margin-bottom: 0;
         }
 
-        /* Desain Ikon Media Sosial Elegan (Lingkaran & Latar Warna Solid Hover) */
+        /* --- DESAIN GLOSSY IKON MEDIA SOSIAL --- */
         .social-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.2rem;
+            gap: 1.5rem;
             margin-bottom: 2.5rem;
         }
 
@@ -628,79 +631,53 @@
             justify-content: center;
             width: 50px;
             height: 50px;
-            border-radius: 50%; /* Mengubah bentuk menjadi lingkaran penuh */
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(5px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 50%;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
         }
 
-        body.light-mode .social-links a {
-            background: rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        /* Layer tersembunyi untuk warna latar hover */
-        .social-links a::before {
+        /* Efek Potongan Kaca Diagonal */
+        .social-links a::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            transition: all 0.4s ease;
-            z-index: 0;
-            opacity: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.25) 50%, transparent 50%, transparent 100%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .social-links a i {
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            transition: all 0.4s ease;
+            font-size: 1.4rem;
+            color: #ffffff !important;
             position: relative;
-            z-index: 2; /* Ikon selalu berada di atas warna latar hover */
+            z-index: 2;
+            transition: transform 0.4s ease;
         }
 
-        /* Animasi saat tombol disorot */
-        .social-links a:hover {
-            transform: translateY(-8px) scale(1.1);
-            border-color: transparent;
-        }
+        /* Warna Solid Tiap Merek */
+        .social-links a.telegram { background: #0088cc; }
+        .social-links a.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .social-links a.youtube { background: #ff0000; }
+        .social-links a.x-twitter { background: #14171a; }
+        .social-links a.facebook { background: #1877f2; }
+        .social-links a.tiktok { background: #000000; }
+        .social-links a.link { background: var(--accent-color); }
 
-        .social-links a:hover::before {
-            opacity: 1;
-        }
-
-        .social-links a:hover i {
-            color: #ffffff !important; /* Semua ikon berubah jadi putih saat di-hover */
-            transform: scale(1.1);
-        }
-
-        /* Warna khusus untuk masing-masing merek saat di-hover */
-        .social-links a.telegram:hover::before { background: #0088cc; }
+        /* Efek Hover */
+        .social-links a:hover { transform: translateY(-8px) scale(1.1); }
+        .social-links a:hover i { transform: scale(1.15); }
+        
         .social-links a.telegram:hover { box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); }
-
-        .social-links a.instagram:hover::before { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .social-links a.instagram:hover { box-shadow: 0 10px 20px rgba(225, 48, 108, 0.4); }
-
-        .social-links a.youtube:hover::before { background: #ff0000; }
         .social-links a.youtube:hover { box-shadow: 0 10px 20px rgba(255, 0, 0, 0.4); }
-
-        .social-links a.x-twitter:hover::before { background: #14171a; }
         .social-links a.x-twitter:hover { box-shadow: 0 10px 20px rgba(20, 23, 26, 0.4); }
-
-        .social-links a.facebook:hover::before { background: #1877f2; }
         .social-links a.facebook:hover { box-shadow: 0 10px 20px rgba(24, 119, 242, 0.4); }
-
-        .social-links a.tiktok:hover::before { background: #000000; }
         .social-links a.tiktok:hover { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); }
-
-        .social-links a.link:hover::before { background: var(--accent-color); }
         .social-links a.link:hover { box-shadow: 0 10px 20px rgba(56, 189, 248, 0.4); }
+        /* --------------------------------------- */
 
         .btn-email-large {
             display: inline-flex;
@@ -776,25 +753,67 @@
             transition: all 0.4s ease;
         }
 
-        body.light-mode .btn-up {
-            color: #fff;
-        }
-
+        body.light-mode .btn-up { color: #fff; }
         .btn-up:hover {
             background: #fff;
             color: var(--accent-color);
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
             transform: translateY(-5px);
         }
+        body.light-mode .btn-up:hover { background: var(--text-primary); }
+        .btn-up.show { opacity: 1; visibility: visible; transform: translateY(0); }
 
-        body.light-mode .btn-up:hover {
-            background: var(--text-primary);
+        /* --- 8. UI FITUR COLLAPSE / MINIMASI --- */
+        .toggle-collapse {
+            position: absolute;
+            top: 7rem; 
+            right: 8%; 
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(56, 189, 248, 0.2);
+            z-index: 10;
         }
 
-        .btn-up.show {
+        .modern-footer .toggle-collapse {
+            top: 6rem; 
+            right: 5%;
+        }
+
+        .toggle-collapse:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .toggle-collapse i { transition: transform 0.4s ease; }
+        .toggle-collapse.rotated i { transform: rotate(180deg); }
+
+        .section-content {
+            transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+            max-height: 5000px; 
             opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+            overflow: hidden;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        section.collapsed-section, footer.collapsed-section {
+            padding-bottom: 2rem !important; 
         }
 
         /* --- RESPONSIVE MOBILE --- */
@@ -823,12 +842,8 @@
                 clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
             }
             
-            .highlight-card {
-                padding: 3rem 1.5rem;
-            }
-            .highlight-card h3 {
-                font-size: 1.8rem;
-            }
+            .highlight-card { padding: 3rem 1.5rem; }
+            .highlight-card h3 { font-size: 1.8rem; }
 
             .contact-card {
                 grid-template-columns: 1fr;
@@ -836,11 +851,15 @@
                 text-align: center;
                 gap: 2.5rem;
             }
-            .contact-info h2 {
-                font-size: 2.2rem;
-            }
-            .social-links {
-                justify-content: center;
+            .contact-info h3 { font-size: 2.2rem; }
+            .social-links { justify-content: center; }
+
+            .toggle-collapse {
+                top: 7rem;
+                right: 5%;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
             }
         }
 
@@ -905,30 +924,38 @@
     </header>
 
     <section id="about" class="container">
-        <div class="split-layout">
-            <div class="about-text hidden">
-                <h2 class="section-title" style="text-align: left;"><span class="border-wrap"><span class="shine-title">Tentang Saya</span></span> 🌐</h2>
-                <p>Saya berdedikasi membangun pengalaman web yang intuitif. Dengan latar belakang di pengembangan front-end dan ketertarikan mendalam pada teknologi AI, saya selalu mencari cara baru untuk mengoptimalkan alur kerja digital.</p>
-                <p>Fokus saya saat ini adalah menciptakan antarmuka yang tidak hanya indah dilihat tetapi juga memecahkan masalah nyata pengguna.</p>
-            </div>
-            <div id="skills" class="skills-list hidden">
-                <h2 class="section-title" style="text-align: left;"><span class="border-wrap"><span class="shine-title">Keahlian</span></span> 🛠️</h2>
-                <div class="tags">
-                    <div class="skill-item">
-                        <div class="skill-info"><span>HTML & CSS</span><span>95%</span></div>
-                        <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 95%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info"><span>JavaScript (ES6+)</span><span>85%</span></div>
-                        <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 85%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info"><span>PHP & Laravel</span><span>80%</span></div>
-                        <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 80%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info"><span>UI/UX Design</span><span>90%</span></div>
-                        <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 90%;"></div></div>
+        <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        
+        <h2 class="section-title hidden"><span class="border-wrap"><span class="shine-title">Profil & Keahlian</span></span> 👨‍💻</h2>
+
+        <div class="section-content">
+            <div class="split-layout">
+                <div class="about-text hidden">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--text-primary);"><span class="shine-title">Tentang Saya</span> 🌐</h3>
+                    <p>Saya berdedikasi membangun pengalaman web yang intuitif. Dengan latar belakang di pengembangan front-end dan ketertarikan mendalam pada teknologi AI, saya selalu mencari cara baru untuk mengoptimalkan alur kerja digital.</p>
+                    <p>Fokus saya saat ini adalah menciptakan antarmuka yang tidak hanya indah dilihat tetapi juga memecahkan masalah nyata pengguna.</p>
+                </div>
+                <div id="skills" class="skills-list hidden">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--text-primary);"><span class="shine-title">Keahlian</span> 🛠️</h3>
+                    <div class="tags">
+                        <div class="skill-item">
+                            <div class="skill-info"><span>HTML & CSS</span><span>95%</span></div>
+                            <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 95%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>JavaScript (ES6+)</span><span>85%</span></div>
+                            <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 85%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>PHP & Laravel</span><span>80%</span></div>
+                            <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 80%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>UI/UX Design</span><span>90%</span></div>
+                            <div class="progress-wrapper"><div class="progress-bar-fill" style="width: 90%;"></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -936,237 +963,286 @@
     </section>
 
     <section id="portfolio" class="container alt-bg">
+        <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
+            <i class="fas fa-chevron-up"></i>
+        </button>
         <h2 class="section-title hidden"><span class="border-wrap"><span class="shine-title">Proyek Unggulan</span></span> 📂</h2>
-        <div class="project-grid">
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto11.png" alt="Portofolio Hobby"></div>
-                <div class="card-info">
-                    <h3>Website Portopolio Hobby</h3>
-                    <p>Landing page responsif Menampilkan Seluruh Hasil Hobi saya.</p>
-                    <a href="https://alvinzulianputraa.wixsite.com/eizitpie" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+        
+        <div class="section-content">
+            <div class="project-grid">
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto11.png" alt="Portofolio Hobby"></div>
+                    <div class="card-info">
+                        <h3>Website Portopolio Hobby</h3>
+                        <p>Landing page responsif Menampilkan Seluruh Hasil Hobi saya.</p>
+                        <a href="https://alvinzulianputraa.wixsite.com/eizitpie" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto13.png" alt="chitrawo"></div>
-                <div class="card-info">
-                    <h3>Chitra Wedding Organizer</h3>
-                    <p>Landing page responsif untuk Pelayanan Jasa Seputar Wedding Organizer Professional.</p>
-                    <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto13.png" alt="chitrawo"></div>
+                    <div class="card-info">
+                        <h3>Chitra Wedding Organizer</h3>
+                        <p>Landing page responsif untuk Pelayanan Jasa Seputar Wedding Organizer Professional.</p>
+                        <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto12.png" alt="Eizitpie Cars"></div>
-                <div class="card-info">
-                    <h3>Eizitpie Otonet Cars</h3>
-                    <p>Landing page responsif Penjualan Mobil Bekas Professional dengan UI Elegan dan Terbaik.</p>
-                    <a href="https://sobatwebsitemu.github.io/eizitpiecars/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto12.png" alt="Eizitpie Cars"></div>
+                    <div class="card-info">
+                        <h3>Eizitpie Otonet Cars</h3>
+                        <p>Landing page responsif Penjualan Mobil Bekas Professional dengan UI Elegan dan Terbaik.</p>
+                        <a href="https://sobatwebsitemu.github.io/eizitpiecars/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto2.png" alt="Soree Coffe"></div>
-                <div class="card-info">
-                    <h3>Soree Coffe</h3>
-                    <p>Landing page responsif untuk bisnis F&B.</p>
-                    <a href="https://eizitpie15production.github.io/soree/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto2.png" alt="Soree Coffe"></div>
+                    <div class="card-info">
+                        <h3>Soree Coffe</h3>
+                        <p>Landing page responsif untuk bisnis F&B.</p>
+                        <a href="https://eizitpie15production.github.io/soree/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto99.png" alt="Pendekar Siak"></div>
-                <div class="card-info">
-                    <h3>Pendekar Silat Siak</h3>
-                    <p>Melayani Jasa Privat Latihan Silat untuk Berbagai Kalangan dengan praktisi Berpengalaman.</p>
-                    <a href="https://sobatwebsitemu.github.io/portopoliozammi/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto99.png" alt="Pendekar Siak"></div>
+                    <div class="card-info">
+                        <h3>Pendekar Silat Siak</h3>
+                        <p>Melayani Jasa Privat Latihan Silat untuk Berbagai Kalangan dengan praktisi Berpengalaman.</p>
+                        <a href="https://sobatwebsitemu.github.io/portopoliozammi/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto100.png" alt="Kebun Kasih Pangan Ilham"></div>
-                <div class="card-info">
-                    <h3>Kebun Kasih Pangan Ilham</h3>
-                    <p>Website Seputar Perkebunan Pribadi Penanaman Cabe dan Terong Untuk Menarik Investor atau Pembeli Hasil Panen Baik Pesan Banyak Maupun Kecil</p>
-                    <a href="https://sobatwebsitemu.github.io/KebunKasihPangan/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto100.png" alt="Kebun Kasih Pangan Ilham"></div>
+                    <div class="card-info">
+                        <h3>Kebun Kasih Pangan Ilham</h3>
+                        <p>Website Seputar Perkebunan Pribadi Penanaman Cabe dan Terong Untuk Menarik Investor atau Pembeli Hasil Panen Baik Pesan Banyak Maupun Kecil</p>
+                        <a href="https://sobatwebsitemu.github.io/KebunKasihPangan/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto3.png" alt="CV Azizah Mandiri"></div>
-                <div class="card-info">
-                    <h3>CV Azizah Mandiri</h3>
-                    <p>Toko Penyedia Paving Block & Material.</p>
-                    <a href="https://eizitpie15production.github.io/CVAzizahMandiri/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto3.png" alt="CV Azizah Mandiri"></div>
+                    <div class="card-info">
+                        <h3>CV Azizah Mandiri</h3>
+                        <p>Toko Penyedia Paving Block & Material.</p>
+                        <a href="https://eizitpie15production.github.io/CVAzizahMandiri/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto5.png" alt="X Space Cafe"></div>
-                <div class="card-info">
-                    <h3>X Space Cafe</h3>
-                    <p>Landing page responsif untuk bisnis F&B.</p>
-                    <a href="https://sobatwebsitemu.github.io/xspacecafe/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto5.png" alt="X Space Cafe"></div>
+                    <div class="card-info">
+                        <h3>X Space Cafe</h3>
+                        <p>Landing page responsif untuk bisnis F&B.</p>
+                        <a href="https://sobatwebsitemu.github.io/xspacecafe/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto8.png" alt="Galaksi Kos"></div>
-                <div class="card-info">
-                    <h3>Galaksi Kos</h3>
-                    <p>Landing page responsif Untuk Bisnis Penginapan Kos.</p>
-                    <a href="https://sobatwebsitemu.github.io/GalaksiKos/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto8.png" alt="Galaksi Kos"></div>
+                    <div class="card-info">
+                        <h3>Galaksi Kos</h3>
+                        <p>Landing page responsif Untuk Bisnis Penginapan Kos.</p>
+                        <a href="https://sobatwebsitemu.github.io/GalaksiKos/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto6.png" alt="Mama Iceland"></div>
-                <div class="card-info">
-                    <h3>Mama Iceland</h3>
-                    <p>Landing page responsif untuk bisnis F&B Ice Cream.</p>
-                    <a href="https://sobatwebsitemu.github.io/mamaiceland/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto6.png" alt="Mama Iceland"></div>
+                    <div class="card-info">
+                        <h3>Mama Iceland</h3>
+                        <p>Landing page responsif untuk bisnis F&B Ice Cream.</p>
+                        <a href="https://sobatwebsitemu.github.io/mamaiceland/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto7.png" alt="Maldif Home"></div>
-                <div class="card-info">
-                    <h3>Maldif Home</h3>
-                    <p>Landing page responsif Untuk Bisnis Penginapan Kos.</p>
-                    <a href="https://alvinzulian.github.io/maldifhome/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto7.png" alt="Maldif Home"></div>
+                    <div class="card-info">
+                        <h3>Maldif Home</h3>
+                        <p>Landing page responsif Untuk Bisnis Penginapan Kos.</p>
+                        <a href="https://alvinzulian.github.io/maldifhome/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto14.png" alt="chitrawo"></div>
-                <div class="card-info">
-                    <h3>Dinamika Rekayasa Utama</h3>
-                    <p>Landing page responsif untuk Jasa Pelayanan Seputar Teknik Sipil Pembangunan Professional.</p>
-                    <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto14.png" alt="chitrawo"></div>
+                    <div class="card-info">
+                        <h3>Dinamika Rekayasa Utama</h3>
+                        <p>Landing page responsif untuk Jasa Pelayanan Seputar Teknik Sipil Pembangunan Professional.</p>
+                        <a href="https://sobatwebsitemu.github.io/chitraweddingorganizer/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto10.png" alt="Jadwal Imsakiyah"></div>
-                <div class="card-info">
-                    <h3>Jadwal Imsakiyah IHA Group</h3>
-                    <p>Landing page responsif Jadwal Imsakiyah Puasa.</p>
-                    <a href="https://sobatwebsitemu.github.io/jadwalimsakkms/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto10.png" alt="Jadwal Imsakiyah"></div>
+                    <div class="card-info">
+                        <h3>Jadwal Imsakiyah IHA Group</h3>
+                        <p>Landing page responsif Jadwal Imsakiyah Puasa.</p>
+                        <a href="https://sobatwebsitemu.github.io/jadwalimsakkms/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto15.png" alt="chitrawo"></div>
-                <div class="card-info">
-                    <h3>Website Curriculum Vitae Digital</h3>
-                    <p>Landing page Website responsif Curriculum Vitae (CV) digital atau halaman profil dari dr. Irvan Herman Abdullah. Situs ini dirancang untuk menampilkan rekam jejak, portofolio, dan profil Irvan Herman secara terstruktur.</p>
-                    <a href="https://sobatwebsitemu.github.io/CVIHA/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto15.png" alt="chitrawo"></div>
+                    <div class="card-info">
+                        <h3>Website Curriculum Vitae Digital</h3>
+                        <p>Landing page Website responsif Curriculum Vitae (CV) digital atau halaman profil dari dr. Irvan Herman Abdullah. Situs ini dirancang untuk menampilkan rekam jejak, portofolio, dan profil Irvan Herman secara terstruktur.</p>
+                        <a href="https://sobatwebsitemu.github.io/CVIHA/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="other-projects" class="container">
+        <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
+            <i class="fas fa-chevron-up"></i>
+        </button>
         <h2 class="section-title hidden"><span class="border-wrap"><span class="shine-title">Proyek Lainnya</span></span> 📂</h2>
-        <div class="project-grid">
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto1.png" alt="Eizitpie Production"></div>
-                <div class="card-info">
-                    <h3>Eizitpie Production</h3>
-                    <p>Platform agensi kreatif solusi AI.</p>
-                    <a href="https://eizitpie15production.github.io/portopoliosaya/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+        
+        <div class="section-content">
+            <div class="project-grid">
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto1.png" alt="Eizitpie Production"></div>
+                    <div class="card-info">
+                        <h3>Eizitpie Production</h3>
+                        <p>Platform agensi kreatif solusi AI.</p>
+                        <a href="https://eizitpie15production.github.io/portopoliosaya/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto4.png" alt="Infografis"></div>
-                <div class="card-info">
-                    <h3>Infografis Pemrograman</h3>
-                    <p>Modul edukasi interaktif untuk pemula.</p>
-                    <a href="https://eizitpie15production.github.io/infografisbapro/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto4.png" alt="Infografis"></div>
+                    <div class="card-info">
+                        <h3>Infografis Pemrograman</h3>
+                        <p>Modul edukasi interaktif untuk pemula.</p>
+                        <a href="https://eizitpie15production.github.io/infografisbapro/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card hidden">
-                <div class="card-image"><img src="porto9.png" alt="Jadwal Ramadhan"></div>
-                <div class="card-info">
-                    <h3>Jadwal Imsakiyah Ramadhan</h3>
-                    <p>Landing page responsif Jadwal Imsakiyah.</p>
-                    <a href="https://sobatwebsitemu.github.io/jadwalimsakiyahramadhan/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                <div class="project-card hidden">
+                    <div class="card-image"><img src="porto9.png" alt="Jadwal Ramadhan"></div>
+                    <div class="card-info">
+                        <h3>Jadwal Imsakiyah Ramadhan</h3>
+                        <p>Landing page responsif Jadwal Imsakiyah.</p>
+                        <a href="https://sobatwebsitemu.github.io/jadwalimsakiyahramadhan/" class="link-arrow">Lihat Portopolio Website Ini &rarr;</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="produk" class="container alt-bg">
+        <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
+            <i class="fas fa-chevron-up"></i>
+        </button>
         <h2 class="section-title hidden">
             <span class="border-wrap"><span class="shine-title">Produk Digital & Affiliate</span></span> 🛒
         </h2>
         
-        <div class="project-grid">
-            <div class="highlight-card hidden" style="padding: 3rem 2rem;">
-                <img src="pd1.png" alt="Produk Digital Eizitpie" class="product-pic">
-                <h3 style="font-size: 1.6rem;">Produk Digital Eksklusif</h3>
-                <p style="font-size: 1rem; max-width: 100%;">Dapatkan koleksi aset digital, *template* desain, dan alat bantu pengembangan web berkualitas tinggi untuk mempermudah alur kerja kreatif Anda.</p>
-                <a href="https://lynk.id/eizitpie" target="_blank" class="btn-magic" style="margin-top: auto; padding: 0.8rem 2rem;">
-                    Jelajahi Produk <i class="fas fa-external-link-alt" style="margin-left:8px;"></i>
-                </a>
-            </div>
+        <div class="section-content">
+            <div class="project-grid">
+                <div class="highlight-card hidden" style="padding: 3rem 2rem;">
+                    <img src="pd1.png" alt="Produk Digital Eizitpie" class="product-pic">
+                    <h3 style="font-size: 1.6rem;">Produk Digital Eksklusif</h3>
+                    <p style="font-size: 1rem; max-width: 100%;">Dapatkan koleksi aset digital, *template* desain, dan alat bantu pengembangan web berkualitas tinggi untuk mempermudah alur kerja kreatif Anda.</p>
+                    <a href="https://lynk.id/eizitpie" target="_blank" class="btn-magic" style="margin-top: auto; padding: 0.8rem 2rem;">
+                        Jelajahi Produk <i class="fas fa-external-link-alt" style="margin-left:8px;"></i>
+                    </a>
+                </div>
 
-            <div class="highlight-card hidden" style="padding: 3rem 2rem;">
-                <img src="af1.png" alt="Affiliate Produk Eizitpie" class="product-pic">
-                <h3 style="font-size: 1.6rem;">Rekomendasi Affiliate</h3>
-                <p style="font-size: 1rem; max-width: 100%;">Temukan daftar rekomendasi produk fisik dan alat pendukung tepercaya yang saya pilih khusus untuk menunjang gaya hidup digital Anda.</p>
-                <a href="https://collshp.com/eizitpie" target="_blank" class="btn-magic" style="margin-top: auto; padding: 0.8rem 2rem;">
-                    Lihat Koleksi <i class="fas fa-external-link-alt" style="margin-left:8px;"></i>
-                </a>
+                <div class="highlight-card hidden" style="padding: 3rem 2rem;">
+                    <img src="af1.png" alt="Affiliate Produk Eizitpie" class="product-pic">
+                    <h3 style="font-size: 1.6rem;">Rekomendasi Affiliate</h3>
+                    <p style="font-size: 1rem; max-width: 100%;">Temukan daftar rekomendasi produk fisik dan alat pendukung tepercaya yang saya pilih khusus untuk menunjang gaya hidup digital Anda.</p>
+                    <a href="https://collshp.com/eizitpie" target="_blank" class="btn-magic" style="margin-top: auto; padding: 0.8rem 2rem;">
+                        Lihat Koleksi <i class="fas fa-external-link-alt" style="margin-left:8px;"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="jasa" class="container">
+        <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
+            <i class="fas fa-chevron-up"></i>
+        </button>
         <h2 class="section-title hidden">
             <span class="border-wrap"><span class="shine-title">Jasa Buat Website</span></span> 💻
         </h2>
         
-        <div class="highlight-card hidden" style="max-width: 900px; margin: 0 auto;">
-            <center>
-                <img src="foto-andaai.png" alt="Profil AI Jasa" class="profile-pic" style="margin-bottom: 2rem; width: 140px; height: 140px;">
-            </center>
-            
-            <h3>Website Profesional, Cepat & Responsif</h3>
-            <p style="max-width: 700px; margin-left: auto; margin-right: auto;">
-                Tingkatkan kredibilitas bisnis Anda dengan website modern yang dioptimalkan untuk performa dan SEO. Mulai dari Landing Page, Company Profile, hingga Toko Online, saya siap mewujudkan visi digital Anda menjadi kenyataan dengan desain UI/UX yang elegan dan fungsional.
-            </p>
-            <a href="https://t.me/mreizitpie" target="_blank" class="btn-magic" style="font-size: 1.1rem; padding: 1rem 3rem; border-radius: 50px; margin-top: 1rem;">
-                <i class="fab fa-telegram-plane" style="margin-right: 8px; font-size: 1.3rem;"></i> Konsultasi & Pesan Sekarang
-            </a>
+        <div class="section-content">
+            <div class="highlight-card hidden" style="max-width: 900px; margin: 0 auto;">
+                <center>
+                    <img src="foto-andaai.png" alt="Profil AI Jasa" class="profile-pic" style="margin-bottom: 2rem; width: 140px; height: 140px;">
+                </center>
+                
+                <h3>Website Profesional, Cepat & Responsif</h3>
+                <p style="max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Tingkatkan kredibilitas bisnis Anda dengan website modern yang dioptimalkan untuk performa dan SEO. Mulai dari Landing Page, Company Profile, hingga Toko Online, saya siap mewujudkan visi digital Anda menjadi kenyataan dengan desain UI/UX yang elegan dan fungsional.
+                </p>
+                <a href="https://t.me/mreizitpie" target="_blank" class="btn-magic" style="font-size: 1.1rem; padding: 1rem 3rem; border-radius: 50px; margin-top: 1rem;">
+                    <i class="fab fa-telegram-plane" style="margin-right: 8px; font-size: 1.3rem;"></i> Konsultasi & Pesan Sekarang
+                </a>
+            </div>
         </div>
     </section>
 
     <footer id="contact" class="modern-footer hidden alt-bg">
-        <div class="contact-card">
-            <div class="contact-info">
-                <h2><span class="shine-title">Mari Terhubung!</span>🤝</h2>
-                <p>Punya proyek impian, butuh website untuk bisnis Anda, atau sekadar ingin berdiskusi soal teknologi digital? Jangan ragu untuk menyapa saya. Mari ciptakan sesuatu yang luar biasa bersama-sama.</p>
-            </div>
-            
-            <div class="contact-actions">
-                <div class="social-links">
-                    <a href="https://t.me/mreizitpie" target="_blank" aria-label="Telegram" class="telegram"><i class="fab fa-telegram"></i></a>
-                    <a href="https://www.instagram.com/eizitpie" target="_blank" aria-label="Instagram" class="instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@eizitpie" target="_blank" aria-label="YouTube" class="youtube"><i class="fab fa-youtube"></i></a>
-                    <a href="https://x.com" target="_blank" aria-label="X (Twitter)" class="x-twitter"><i class="fab fa-x-twitter"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=100088832516786&_rdc=1&_rdr#" target="_blank" aria-label="Facebook" class="facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.tiktok.com/@eizitpie" target="_blank" aria-label="TikTok" class="tiktok"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://lynk.id/eizitpie" target="_blank" aria-label="Lynk ID" class="link"><i class="fas fa-link"></i></a>
-                    <a href="https://infomedsoseizitpie.carrd.co/" target="_blank" aria-label="carrd.co" class="link"><i class="fas fa-link"></i></a>
+        <button class="toggle-collapse" aria-label="Sembunyikan Bagian" title="Sembunyikan/Tampilkan Konten">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+        <h2 class="section-title hidden" style="margin-bottom: 2.5rem;"><span class="border-wrap"><span class="shine-title">Temukan Saya</span></span> 📞</h2>
+        
+        <div class="section-content">
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h3><span class="shine-title">Mari Terhubung!</span>🤝</h3>
+                    <p>Punya proyek impian, butuh website untuk bisnis Anda, atau sekadar ingin berdiskusi soal teknologi digital? Jangan ragu untuk menyapa saya. Mari ciptakan sesuatu yang luar biasa bersama-sama.</p>
                 </div>
                 
-                <a href="mailto:email@anda.com" class="btn-email-large">
-                    <i class="fas fa-envelope"></i> Kirim Pesan Email
-                </a>
+                <div class="contact-actions">
+                    <div class="social-links">
+                        <a href="https://t.me/mreizitpie" target="_blank" aria-label="Telegram" class="telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="https://www.instagram.com/eizitpie" target="_blank" aria-label="Instagram" class="instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@eizitpie" target="_blank" aria-label="YouTube" class="youtube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com" target="_blank" aria-label="X (Twitter)" class="x-twitter"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100088832516786&_rdc=1&_rdr#" target="_blank" aria-label="Facebook" class="facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.tiktok.com/@eizitpie" target="_blank" aria-label="TikTok" class="tiktok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://lynk.id/eizitpie" target="_blank" aria-label="Lynk ID" class="link"><i class="fas fa-link"></i></a>
+                        <a href="https://infomedsoseizitpie.carrd.co/" target="_blank" aria-label="carrd.co" class="link"><i class="fas fa-link"></i></a>
+                    </div>
+                    
+                    <a href="mailto:email@anda.com" class="btn-email-large">
+                        <i class="fas fa-envelope"></i> Kirim Pesan Email
+                    </a>
+                </div>
             </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p class="copyright-text">
-                &copy; 2025 [CV Portopolio]. Dibuat Oleh 
-                <a href="https://www.instagram.com/eizitpie" target="_blank" class="shine-title footer-link">
-                    Eizitpie Production
-                </a>.
-            </p>
+            
+            <div class="footer-bottom">
+                <p class="copyright-text">
+                    &copy; 2025 [CV Portopolio]. Dibuat Oleh 
+                    <a href="https://www.instagram.com/eizitpie" target="_blank" class="shine-title footer-link">
+                        Eizitpie Production
+                    </a>.
+                </p>
+            </div>
         </div>
     </footer>
 
     <a href="#" id="backToTop" class="btn-up">&#8679;</a>
 
     <script>
+        document.querySelectorAll('.toggle-collapse').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('rotated');
+                
+                const section = this.closest('section, footer');
+                const content = section.querySelector('.section-content');
+                
+                if (content.classList.contains('collapsed')) {
+                    content.classList.remove('collapsed');
+                    section.classList.remove('collapsed-section'); 
+                    this.setAttribute('aria-label', 'Sembunyikan Bagian');
+                } else {
+                    content.classList.add('collapsed');
+                    section.classList.add('collapsed-section'); 
+                    this.setAttribute('aria-label', 'Tampilkan Bagian');
+                }
+            });
+        });
+
         const btnUp = document.getElementById('backToTop');
         window.addEventListener('scroll', function () {
             if (window.scrollY > 300) { btnUp.classList.add('show'); }
